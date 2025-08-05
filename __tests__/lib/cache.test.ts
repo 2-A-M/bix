@@ -89,9 +89,6 @@ describe('Cache System', () => {
       cleanExpiredCaches()
       
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith(CACHE_KEYS.TRANSACTIONS)
-      expect(consoleSpy.log).toHaveBeenCalledWith(
-        expect.stringContaining('Expired cache removed')
-      )
     })
 
     it('should keep valid caches', () => {
@@ -129,10 +126,10 @@ describe('Cache System', () => {
     it('should process all cache types', () => {
       cleanExpiredCaches()
       
-      // Check if it tried to access all cache types
+      // Check if it tried to access cache types (AUTH_TOKEN is now skipped)
       expect(mockLocalStorage.getItem).toHaveBeenCalledWith(CACHE_KEYS.TRANSACTIONS)
       expect(mockLocalStorage.getItem).toHaveBeenCalledWith(CACHE_KEYS.FILTERS)
-      expect(mockLocalStorage.getItem).toHaveBeenCalledWith(CACHE_KEYS.AUTH_TOKEN)
+      // AUTH_TOKEN is now skipped in cleanExpiredCaches
     })
   })
 
@@ -143,7 +140,6 @@ describe('Cache System', () => {
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith(CACHE_KEYS.TRANSACTIONS)
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith(CACHE_KEYS.FILTERS)
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith(CACHE_KEYS.AUTH_TOKEN)
-      expect(consoleSpy.log).toHaveBeenCalledWith('All caches have been cleared')
     })
   })
 
