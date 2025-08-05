@@ -17,42 +17,8 @@ import {
   saveFiltersToStorage
 } from '@/lib/utils';
 import { useMobileMenu } from '@/lib/context';
-import { RefreshCw } from 'lucide-react';
 
-const RefreshButton = styled.button`
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  border: none;
-  color: white;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  z-index: 1000;
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-  
-  @media (max-width: 768px) {
-    bottom: 1rem;
-    right: 1rem;
-    width: 44px;
-    height: 44px;
-  }
-`;
+
 
 const DashboardContent = styled.div`
   min-height: 100vh;
@@ -170,7 +136,7 @@ const TableCard = styled.div`
 
 
 export default function DashboardPage() {
-  const { transactions, isLoading, error, refresh } = useTransactions();
+  const { transactions, isLoading, error } = useTransactions();
   const { toggleMobileMenu } = useMobileMenu();
   
   const [filters, setFilters] = useState<TransactionFilters>({
@@ -259,13 +225,7 @@ export default function DashboardPage() {
         <TransactionTable transactions={filteredTransactions} />
       </ContentArea>
       
-      <RefreshButton 
-        onClick={refresh} 
-        disabled={isLoading}
-        title="Refresh data"
-      >
-        <RefreshCw size={20} />
-      </RefreshButton>
+
     </DashboardContent>
   );
 }
