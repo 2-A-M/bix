@@ -30,7 +30,7 @@ Dashboard financeiro moderno e responsivo construído com **Next.js 14**, **Type
 
 1. **Clone o repositório**
    ```bash
-   git clone 
+   git clone https://github.com/2-A-M/bix
    cd bix
    ```
 
