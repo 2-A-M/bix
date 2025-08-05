@@ -46,7 +46,7 @@ Dashboard financeiro moderno e responsivo construído com **Next.js 14**, **Type
 
 4. **Acesse no navegador**
    ```
-   
+   https://bix-ebon.vercel.app/
    ```
 
 ## 🎯 Como Usar
