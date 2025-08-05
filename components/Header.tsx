@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Calendar, Building2, MapPin, Factory, Filter, Menu, X } from 'lucide-react';
+import { Calendar, Building2, MapPin, Factory, Filter, Menu, X, RotateCcw } from 'lucide-react';
 import { TransactionFilters } from '@/lib/types';
 
 const HeaderContainer = styled.header`
@@ -154,6 +154,30 @@ const ApplyButton = styled.button`
   }
 `;
 
+const ResetButton = styled.button`
+  background: #6b7280;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background: #4b5563;
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+  }
+`;
+
 interface HeaderProps {
   filters: TransactionFilters;
   onFiltersChange: (filters: TransactionFilters) => void;
@@ -192,6 +216,17 @@ export default function Header({
 
   const applyFilters = () => {
     onFiltersChange(localFilters);
+  };
+
+  const resetFilters = () => {
+    const resetFilters: TransactionFilters = {
+      dateRange: { from: null, to: null },
+      account: null,
+      industry: null,
+      state: null
+    };
+    setLocalFilters(resetFilters);
+    onFiltersChange(resetFilters);
   };
 
   return (
@@ -268,6 +303,11 @@ export default function Header({
             <Filter size={16} />
             Apply Filters
           </ApplyButton>
+          
+          <ResetButton onClick={resetFilters}>
+            <RotateCcw size={16} />
+            Reset
+          </ResetButton>
         </FilterSection>
       </HeaderContent>
     </HeaderContainer>
