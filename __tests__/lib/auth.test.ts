@@ -68,6 +68,28 @@ describe('Authentication System', () => {
       logout()
       expect(mockLocalStorage.removeItem).toHaveBeenCalledWith('bix_auth_token')
     })
+
+    it('should clear authentication state after logout', () => {
+      // Setup: user is authenticated
+      const validToken = {
+        token: 'valid_token',
+        expiresAt: Date.now() + 1000000,
+        user: { id: '1', email: 'test@test.com', name: 'Test User' }
+      }
+      
+      mockLocalStorage.getItem.mockReturnValue(JSON.stringify(validToken))
+      expect(isAuthenticated()).toBe(true)
+      
+      // Perform logout
+      logout()
+      
+      // Verify token is removed
+      expect(mockLocalStorage.removeItem).toHaveBeenCalledWith('bix_auth_token')
+      
+      // Verify authentication state is cleared
+      mockLocalStorage.getItem.mockReturnValue(null)
+      expect(isAuthenticated()).toBe(false)
+    })
   })
 
   describe('getStoredToken', () => {

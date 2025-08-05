@@ -5,6 +5,7 @@ import { Home, LogOut, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { logout } from '@/lib/auth';
 import { useMobileMenu } from '@/lib/context';
+import { useAuthContext } from '@/lib/AuthContext';
 
 const SidebarContainer = styled.aside`
   width: 250px;
@@ -143,9 +144,11 @@ interface SidebarProps {
 export default function Sidebar({ className }: SidebarProps) {
   const router = useRouter();
   const { closeMobileMenu } = useMobileMenu();
+  const { refreshAuth } = useAuthContext();
 
   const handleLogout = () => {
     logout();
+    refreshAuth(); // Atualiza o estado de autenticação
     router.push('/login');
   };
 
